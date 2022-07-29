@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader" />
+
+    <!--search bar-->
+<!--    <div class="align-content-end">
+        <form role="form" th:action="@{/address/friend/{name} (name=${name})}" method="get">
+            <label for="name">검색할 친구</label>
+            <input type="text" id="name" name="name" class="form-control">
+            <button type="submit" class="btn btn-outline-primary float-right">검색</button>
+        </form>
+    </div>-->
+
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>날짜</th>
+                <th>시가</th>
+                <th>고가</th>
+                <th>저가</th>
+                <th>종가</th>
+                <th>수정종가</th>
+                <th>거래량</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  th:each="stoc : ${stock}">
+                <td th:text="${stoc.date}"></td>
+                <td th:text="${stoc.open}"></td>
+                <td th:text="${stoc.high}"></td>
+                <td th:text="${stoc.low}"></td>
+                <td th:text="${stoc.close}"></td>
+                <td th:text="${stoc.adjClose}"></td>
+                <td th:text="${stoc.volume}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:replace="fragments/footer :: footer" />
+
+</div>
+<script>
+</script>
+</body>
+</html>
