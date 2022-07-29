@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
@@ -30,7 +31,7 @@ public class StockInfoService {
         int dd = Integer.parseInt(stockParam.get("FROM_DT").toString().substring(6, 8));
         cal.set(Calendar.YEAR,  YYYY);
         cal.set(Calendar.MONTH, mm-1  );
-        cal.set(Calendar.DAY_OF_MONTH, dd);
+        cal.set(Calendar.DAY_OF_MONTH, dd+1);
 
         Date period1 = datechange(cal);
 
@@ -42,7 +43,7 @@ public class StockInfoService {
 
         cal1.set(Calendar.YEAR, YYYY);
         cal1.set(Calendar.MONTH, mm-1);
-        cal1.set(Calendar.DAY_OF_MONTH,  dd);
+        cal1.set(Calendar.DAY_OF_MONTH,  dd+1);
         Date period2 = datechange(cal1);
 
         String interval="1d";
@@ -69,12 +70,12 @@ public class StockInfoService {
             if (count > 0) {
 
                 LocalDate date = LocalDate.parse(line.split(",")[0], DateTimeFormatter.ISO_DATE);
-                Double open = Double.parseDouble(line.split(",")[1]);
-                Double high = Double.parseDouble(line.split(",")[2]);
-                Double low = Double.parseDouble(line.split(",")[3]);
-                Double close = Double.parseDouble(line.split(",")[4]);
-                Double adjClose = Double.parseDouble(line.split(",")[5]);
-                Double volume = Double.parseDouble(line.split(",")[6]);
+                Double open = Math.round(Double.parseDouble(line.split(",")[1]) * 100) / 100.0;
+                Double high = Math.round(Double.parseDouble(line.split(",")[2]) * 100) / 100.0;
+                Double low = Math.round(Double.parseDouble(line.split(",")[3]) * 100) / 100.0;
+                Double close = Math.round(Double.parseDouble(line.split(",")[4]) * 100) / 100.0;
+                Double adjClose = Math.round(Double.parseDouble(line.split(",")[5]) * 100) / 100.0;
+                BigDecimal volume = new BigDecimal(line.split(",")[6]);
 
                 Stock collected = new Stock(date, open, high, low, close, adjClose, volume);
                 totalArray.add(collected);
@@ -91,17 +92,6 @@ public class StockInfoService {
     public static Date datechange(Calendar cal) throws ParseException {
 
         Date dateOne =cal.getTime();
-
-        /*String a = dateOne.toString();
-
-        String b[] = a.split(" ");
-        String c = b[1]+" "+b[2]+" "+b[5];
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd ",
-                Locale.KOREA);
-        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-        cal.setTime(sdf.parse(c));
-        dateOne=cal.getTime();*/
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy MM dd ",
                 Locale.KOREA);

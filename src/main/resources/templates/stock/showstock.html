@@ -6,20 +6,12 @@
 <div class="container">
     <div th:replace="fragments/bodyHeader :: bodyHeader" />
 
-    <!--search bar-->
-<!--    <div class="align-content-end">
-        <form role="form" th:action="@{/address/friend/{name} (name=${name})}" method="get">
-            <label for="name">검색할 친구</label>
-            <input type="text" id="name" name="name" class="form-control">
-            <button type="submit" class="btn btn-outline-primary float-right">검색</button>
-        </form>
-    </div>-->
-
     <div>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>날짜</th>
+                <th colspan="2">날짜</th>
+                <th>   </th>
                 <th>시가</th>
                 <th>고가</th>
                 <th>저가</th>
@@ -30,13 +22,14 @@
             </thead>
             <tbody>
             <tr  th:each="stoc : ${stock}">
-                <td th:text="${stoc.date}"></td>
-                <td th:text="${stoc.open}"></td>
-                <td th:text="${stoc.high}"></td>
-                <td th:text="${stoc.low}"></td>
-                <td th:text="${stoc.close}"></td>
-                <td th:text="${stoc.adjClose}"></td>
-                <td th:text="${stoc.volume}"></td>
+                <td colspan="2" th:text="${stoc.date}"></td>
+                <td></td>
+                <td th:text="${stoc.open}" style="text-align: right"></td>
+                <td th:text="${stoc.high}" style="text-align: right"></td>
+                <td th:text="${stoc.low}" style="text-align: right"></td>
+                <td th:text="${stoc.close}" style="text-align: right"></td>
+                <td th:text="${stoc.adjClose}" style="text-align: right"></td>
+                <td th:text="${stoc.volume}" style="text-align: right"></td>
             </tr>
             </tbody>
         </table>

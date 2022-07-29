@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -26,9 +27,9 @@ public class Stock {
     private Double low;
     private Double close;
     private Double adjClose;
-    private Double volume;
+    private BigDecimal volume;
 
-    public Stock(LocalDate date, Double open, Double high, Double low, Double close, Double adjClose, Double volume) {
+    public Stock(LocalDate date, Double open, Double high, Double low, Double close, Double adjClose, BigDecimal volume) {
         this.date = date;
         this.open = open;
         this.high = high;
